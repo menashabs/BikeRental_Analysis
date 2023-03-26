@@ -1,9 +1,14 @@
+######################################
+######################################
+## Project - BikeRental
+
 library(tidyverse)
 library(broom)
 library(GGally)
 library(ggplot2)
+library(readxl)
 
-data_2011 <- data_used_model_building
+data_2011 <- read_xlsx("BikeRental_Dataset.xlsx")
 data_2011
 
 data_2011 %>%  ggplot(aes(x=record_index, y=Y)) + 
