@@ -2,12 +2,17 @@
 ######################################
 ## Project - BikeRental
 
+# loading the libraries
 library(tidyverse)
 library(broom)
 library(GGally)
 library(ggplot2)
 library(readxl)
+library(olsrr)
+library(MASS)
+library(modelr)
 
+# Analysis
 data_2011 <- read_xlsx("BikeRental_Dataset.xlsx")
 data_2011
 
@@ -37,8 +42,6 @@ data_2011 %>% ggpairs(columns=c("Y","X1","X4"),
 
 ##########
 
-library(olsrr)
-
 model1 <- lm(Y~X1+X4+as.factor(X5)+as.factor(X6)+as.factor(X7), data_2011)
 summary(model1)
 
@@ -56,17 +59,11 @@ ols_test_normality(final_model)
 
 ols_vif_tol(model1)
 
-library(MASS)
-
 boxcox_values <- boxcox(final_model)
 boxcox_lambda <- boxcox_values$x[which.max(boxcox_values$y)]
 boxcox_lambda
 
 ols_vif_tol(final_model)
-
-
-
-library(modelr)
 
 data_2011$factorX5 <- as.factor(data_2011$X5)
 data_2011$factorX6 <- as.factor(data_2011$X6)
@@ -88,8 +85,6 @@ ggplot(model_fitresid,
 ggplot(model_fitresid, 
        aes(sample=.resid)) +
   stat_qq() + stat_qq_line()
-
-library(MASS)
 
 boxcox_values <- boxcox(final_model)
 boxcox_lambda <- boxcox_values$x[which.max(boxcox_values$y)]
@@ -165,11 +160,7 @@ ols_plot_resid_fit(final_model_new_2)
 
 ols_test_normality(final_model_new)
 
-
-
 ols_vif_tol(final_model_new)
-
-
 
 # heteroscadasticity
 
