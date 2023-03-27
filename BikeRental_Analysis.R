@@ -204,12 +204,15 @@ ols_plot_comp_plus_resid(final_model)
 
 ####
 
+# validation 
+
 data_2012 <- data_used_model_validating
 data_2012
 
 data_2012$factorX5 <- as.factor(data_2012$X5)
 data_2012$factorX6 <- as.factor(data_2012$X6) 
 
+# prediction
 predictions <- predict(final_model, data_2012)
 predictions
 
@@ -270,6 +273,7 @@ data_2012 %>% ggpairs(columns=c("Y","X1","X4"),
 data_2012 %>%  ggplot(aes(x=record_index, y=Y)) + 
   geom_point(col="red", shape=15) +
   ggtitle("For the test set Visualizing the behaviour of Count of total rental bikes")
+
 
 
 
